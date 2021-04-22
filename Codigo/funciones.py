@@ -39,7 +39,7 @@ def conservacionH (r_inicial, masa, v_inicial, r_final):
     # Salida:
     # v_tan_final: velocidad tangencial al final del recorrido
     #
-    v_tan_final = (r_incial * v_incial)/r_final
+    v_tan_final = (r_inicial * v_inicial)/r_final
     return v_tan_final
 
 def magnitudVector (a, b):
@@ -71,3 +71,11 @@ def principioU_E (masa, v_inicial, v_final):
     U_redondeado = round(U, 2)
     return U_redondeado
 
+
+def calcular(masa, v_tan_inicial, v_normal, r_inicial, t_final):
+    r_final = radioFinal (r_inicial, v_normal, t_final)
+    v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
+    mag_v_final = magnitudVector (v_normal, v_tan_final)
+    trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
+
+    print("Velocidad final: ", mag_v_final, "\nTrabajo: ", trabajo)
