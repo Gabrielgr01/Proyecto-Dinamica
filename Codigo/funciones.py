@@ -78,4 +78,4 @@ def calcular(masa, v_tan_inicial, v_normal, r_inicial, t_final):
     mag_v_final = magnitudVector (v_normal, v_tan_final)
     trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
 
-    return("RESULTADO:\nVelocidad final: "+str(round(mag_v_final, 2))+" m/s\nTrabajo: "+str(round(trabajo, 2))+" J")
+    return("Velocidad final: "+str(round(mag_v_final, 2))+" m/s\nTrabajo: "+str(round(trabajo, 2))+" J")
