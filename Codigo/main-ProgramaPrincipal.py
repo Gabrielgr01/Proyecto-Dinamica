@@ -60,15 +60,24 @@ def calcularProblema():
         r_i = float(r_inicial.get())
         t_f = float(t_final.get())
 
-        #r_final = f.radioFinal (r_i, v_n, t_f)
-        #v_tan_final = f.conservacionH (r_i, m, vt_i, r_final)
-        #mag_v_final = f.magnitudVector (v_n, v_tan_final)
-        #trabajo = f.principioU_E (m, vt_i, mag_v_final)
+        if ((m < 0) or (vt_i < 0) or (v_n < 0) or (r_i < 0) or (t_f < 0)):
+            aviso_calcular ["text"] = """ERROR al leer los datos: Revise los valores ingresados.\n
+        - Ingrese solo valores positivos"""
+            resultado["text"] = ""
+            procedimiento["text"] = ""
+            b_procedimiento.pack_forget()
 
-        resultado_texto = f.calcular(m, vt_i, v_n, r_i, t_f)
-        resultado["text"] = resultado_texto
-        procedimiento["text"] = ""
-        b_procedimiento.grid(row=0, column=1, pady=10)
+        else:
+            #r_final = f.radioFinal (r_i, v_n, t_f)
+            #v_tan_final = f.conservacionH (r_i, m, vt_i, r_final)
+            #mag_v_final = f.magnitudVector (v_n, v_tan_final)
+            #trabajo = f.principioU_E (m, vt_i, mag_v_final)
+
+            resultado_texto = f.calcular(m, vt_i, v_n, r_i, t_f)
+            resultado["text"] = resultado_texto
+            procedimiento["text"] = ""
+            #b_procedimiento.grid(row=0, column=1, pady=10)
+            b_procedimiento.pack(pady=5)
 
     except:
         aviso_calcular ["text"] = """ERROR al leer los datos: Revise los valores ingresados.\n
@@ -77,6 +86,9 @@ def calcularProblema():
         - Ingrese valores  con sentido físico
         (ej. no puede haber un radio negativo)
         """
+        resultado["text"] = ""
+        procedimiento["text"] = ""
+        b_procedimiento.pack_forget()
     
     #b_grafica = Button (ventana_principal, text="Ver gráfica", command=verGrafica)
     #b_grafica.place(x=200, y=700)
@@ -210,7 +222,8 @@ f_resultado = LabelFrame(f_calculosL, text="Resultado")
 f_resultado.pack(fill=BOTH, pady=5)
 
 resultado = Label(f_resultado)
-resultado.grid(row=0, column=0, padx=10, pady=10)
+#resultado.grid(row=0, column=0, padx=10, pady=10)
+resultado.pack()
 
 
 ## Botones
