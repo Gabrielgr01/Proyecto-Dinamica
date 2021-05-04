@@ -1,5 +1,7 @@
 # ......importación de librerias......
 import math
+import pandas as pd
+
 
 
 def int_a_float(valor):
@@ -27,7 +29,7 @@ def radioFinal (r_inicial, v_normal, t_final):
     r_final = r_inicial - v_normal * t_final
     return r_final
 
-def conservacionH (r_inicial, masa, v_inicial, r_final):
+def conservacionH (r_inicial, masa, v_tan_inicial, r_final):
     # Función: Calcula la velocidad tangencial final aplicando la
     # consevación de la cantidad de movimiento lineal.
     #
@@ -39,7 +41,7 @@ def conservacionH (r_inicial, masa, v_inicial, r_final):
     # Salida:
     # v_tan_final: velocidad tangencial al final del recorrido
     #
-    v_tan_final = (r_inicial * v_inicial)/r_final
+    v_tan_final = (r_inicial * v_tan_inicial)/r_final
     return v_tan_final
 
 def magnitudVector (a, b):
@@ -79,3 +81,83 @@ def calcular(masa, v_tan_inicial, v_normal, r_inicial, t_final):
     trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
 
     return("Velocidad final: "+str(round(mag_v_final, 2))+" m/s\nTrabajo: "+str(round(trabajo, 2))+" J")
+
+
+## ...... Para Graficar ......
+
+##def dataFrames(masa, v_tan_inicial, v_normal, r_inicial, t_final):
+##
+##    df_velocidad = pd.DataFrame(columns=["Tiempo (s)","Velocidad (m/s)"])
+##    df_trabajo = pd.DataFrame(columns=["Tiempo (s)","Trabajo (J)"])
+##    
+##    if (t_final%2 == 0):
+##        rango = t_final+t_final+1
+##    else:
+##        rango = t_final+t_final+1
+##    
+##    for i in range(rango):
+##        try:
+##            r_final = radioFinal (r_inicial, v_normal, i)
+##            v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
+##            mag_v_final = magnitudVector (v_normal, v_tan_final)
+##            trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
+##
+##            df_velocidad.loc[i] = [i, mag_v_final]
+##            df_trabajo.loc[i] = [i, trabajo]
+##
+##        except ZeroDivisionError:
+##            break
+##        
+##    # print: Para revisar los dataFrames
+##    print(df_velocidad)
+##    print("\n")
+##    print(df_trabajo)
+
+
+def dataFrame(masa, v_tan_inicial, v_normal, r_inicial, t_final):
+
+    df = pd.DataFrame(columns=["tiempo_s","velocidad_m_s","trabajo_J"])
+    
+    if (t_final%2 == 0):
+        rango = t_final+t_final+1
+    else:
+        rango = t_final+t_final+1
+    
+    for i in range(int(rango)):
+        try:
+            r_final = radioFinal (r_inicial, v_normal, i)
+            v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
+            mag_v_final = magnitudVector (v_normal, v_tan_final)
+            trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
+
+            df.loc[i] = [i, mag_v_final, trabajo]
+
+        except ZeroDivisionError:
+            break
+    return df        
+    ## print: Para revisar el dataFrame
+    #print(df)
+
+def dataFrameCM(masa, v_tan_inicial, v_normal, r_inicial, t_final):
+
+    df = pd.DataFrame(columns=["tiempo_s","velocidad_cm_s","trabajo_J"])
+    
+    if (t_final%2 == 0):
+        rango = t_final+t_final+1
+    else:
+        rango = t_final+t_final+1
+    
+    for i in range(int(rango)):
+        try:
+            r_final = radioFinal (r_inicial, v_normal, i)
+            v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
+            mag_v_final = magnitudVector (v_normal, v_tan_final)
+            trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
+
+            df.loc[i] = [i, mag_v_final*100, trabajo]
+
+        except ZeroDivisionError:
+            break
+    return df        
+    ## print: Para revisar el dataFrame
+    #print(df)
