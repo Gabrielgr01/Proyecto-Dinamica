@@ -4,11 +4,53 @@ import math
 import funciones as f # aquí están las funciones matemáticas creadas
 from tkinter import * # para la GUI
 from tkinter import ttk
-from PIL import ImageTk, Image
+#from PIL import ImageTk, Image
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # ...... Funciones ......
 
 # Funciones de validación
+
+def validar ():
+    aviso_calcular ["text"] = "Aquí aparecerán los avisos de error"
+    paramList = []
+    
+    try:
+        m = float(masa.get())
+        vt_i = float(v_tan_inicial.get())
+        v_n = float(v_normal.get())
+        r_i = float(r_inicial.get())
+        t_f = float(t_final.get())
+
+        if ((m < 0) or (vt_i < 0) or (v_n < 0) or (r_i < 0) or (t_f < 0)):
+            aviso_calcular ["text"] = """ERROR al leer los datos: Revise los valores ingresados.\n
+        - Ingrese solo valores positivos"""
+            resultado["text"] = ""
+            procedimiento["text"] = ""
+            b_procedimiento.pack_forget()
+            b_graficaVelocidad.pack_forget()
+            b_graficaTrabajo.pack_forget()
+            b_graficasJuntas.pack_forget()
+
+        else:
+            paramList = [m, vt_i, v_n, r_i, t_f]
+
+    except:
+        aviso_calcular ["text"] = """ERROR al leer los datos: Revise los valores ingresados.\n
+        - Ingrese solo valores numéricos
+        - No deje espacios en blanco
+        - Ingrese valores  con sentido físico
+        (ej. no puede haber un radio negativo)
+        """
+        resultado["text"] = ""
+        procedimiento["text"] = ""
+        b_procedimiento.pack_forget()
+        b_graficaVelocidad.pack_forget()
+        b_graficaTrabajo.pack_forget()
+        b_graficasJuntas.pack_forget()
+       
+    return paramList
 
 
 # Funciones al presionar botones
@@ -47,52 +89,74 @@ def verProcedimiento():
     procedimiento["text"] = procedimiento_texto
     b_procedimiento.pack_forget()
 
-#def verGrafica():
-
+def verGraficasJuntas():
+    listaParam = validar()
     
+    if listaParam:   
+        plt.close('all')
+
+        df = f.dataFrameCM(listaParam[0], listaParam[1], listaParam[2], listaParam[3], listaParam[4])
+
+        plt.plot(df.tiempo_s, df.velocidad_cm_s, color='r', label="Velocidad (cm/s)")
+        plt.plot(df.tiempo_s, df.trabajo_J, color='b', label="Trabajo (J)")
+        plt.legend()
+        plt.title("Gráfica de velocidad y trabajo vs tiempo")
+        plt.xlabel("Tiempo (s)")
+        plt.show()
+
+def verGraficaVelocidad():
+    listaParam = validar()
+    
+    if listaParam:   
+        plt.close('all')
+        
+        df = f.dataFrame(listaParam[0], listaParam[1], listaParam[2], listaParam[3], listaParam[4])
+
+        plt.plot(df.tiempo_s, df.velocidad_m_s, color='r', label="Velocidad (m/s)")
+        plt.title("Gráfica de velocidad vs tiempo")
+        plt.xlabel("Tiempo (s)")
+        plt.show()
+
+def verGraficaTrabajo():
+    listaParam = validar()
+    
+    if listaParam:    
+        plt.close('all')
+        
+        df = f.dataFrame(listaParam[0], listaParam[1], listaParam[2], listaParam[3], listaParam[4])
+
+        plt.plot(df.tiempo_s, df.trabajo_J, color='b', label="Trabajo (J)")
+        plt.title("Gráfica de trabajo vs tiempo")
+        plt.xlabel("Tiempo (s)")
+        plt.show()
+
+
 def calcularProblema():
-    aviso_calcular ["text"] = "Aquí aparecerán los avisos de error"
+    listaParam = validar()
     
-    try:
-        m = float(masa.get())
-        vt_i = float(v_tan_inicial.get())
-        v_n = float(v_normal.get())
-        r_i = float(r_inicial.get())
-        t_f = float(t_final.get())
+    if listaParam:
+        #r_final = f.radioFinal (r_i, v_n, t_f)
+        #v_tan_final = f.conservacionH (r_i, m, vt_i, r_final)
+        #mag_v_final = f.magnitudVector (v_n, v_tan_final)
+        #trabajo = f.principioU_E (m, vt_i, mag_v_final)
 
-        if ((m < 0) or (vt_i < 0) or (v_n < 0) or (r_i < 0) or (t_f < 0)):
-            aviso_calcular ["text"] = """ERROR al leer los datos: Revise los valores ingresados.\n
-        - Ingrese solo valores positivos"""
-            resultado["text"] = ""
-            procedimiento["text"] = ""
-            b_procedimiento.pack_forget()
-
-        else:
-            #r_final = f.radioFinal (r_i, v_n, t_f)
-            #v_tan_final = f.conservacionH (r_i, m, vt_i, r_final)
-            #mag_v_final = f.magnitudVector (v_n, v_tan_final)
-            #trabajo = f.principioU_E (m, vt_i, mag_v_final)
-
-            resultado_texto = f.calcular(m, vt_i, v_n, r_i, t_f)
-            resultado["text"] = resultado_texto
-            procedimiento["text"] = ""
-            #b_procedimiento.grid(row=0, column=1, pady=10)
-            b_procedimiento.pack(pady=5)
-
-    except:
-        aviso_calcular ["text"] = """ERROR al leer los datos: Revise los valores ingresados.\n
-        - Ingrese solo valores numéricos
-        - No deje espacios en blanco
-        - Ingrese valores  con sentido físico
-        (ej. no puede haber un radio negativo)
-        """
-        resultado["text"] = ""
+        resultado_texto = f.calcular(listaParam[0], listaParam[1], listaParam[2], listaParam[3], listaParam[4])
+        resultado["text"] = resultado_texto
         procedimiento["text"] = ""
-        b_procedimiento.pack_forget()
-    
-    #b_grafica = Button (ventana_principal, text="Ver gráfica", command=verGrafica)
-    #b_grafica.place(x=200, y=700)
+        #b_procedimiento.grid(row=0, column=1, pady=10)
 
+        b_procedimiento.pack_forget()
+        b_graficaVelocidad.pack_forget()
+        b_graficaTrabajo.pack_forget()
+        b_graficasJuntas.pack_forget()
+        
+        b_procedimiento.pack(pady=5)
+        b_graficaVelocidad.pack(pady=5)
+        b_graficaTrabajo.pack(pady=5)
+        b_graficasJuntas.pack(pady=5)
+
+
+            
 
 # ...... GUI (Interfaz gráfica de usuario) ......
 
@@ -232,6 +296,9 @@ b_resultado.grid(row=6, column=1, pady=10)
 
 b_procedimiento = Button (f_resultado, text="Ver procedimiento", command=verProcedimiento)
 #b_procedimiento.place(x=120, y=700)
+b_graficasJuntas = Button (f_resultado, text="Ver Gráficas (Juntas)", width=20, command=verGraficasJuntas)
+b_graficaVelocidad = Button (f_resultado, text="Ver Gráfica de Velocidad", width=20, command=verGraficaVelocidad)
+b_graficaTrabajo = Button (f_resultado, text="Ver Gráfica de Trabajo", width=20, command=verGraficaTrabajo)
 
 
 ventana_principal.mainloop() # mantiene las ventanas en ejecución
