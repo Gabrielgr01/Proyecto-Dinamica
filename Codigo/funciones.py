@@ -2,17 +2,6 @@
 import math
 import pandas as pd
 
-
-
-def int_a_float(valor):
-    if (type(valor) == int):
-        valor_float = float(valor)
-    elif (type(valor) == float):
-        valor_float = valor
-    else:
-        print("Error: Ingrese un valor numérico")
-
-
 # ......Funciones para los cálculos del problema......
 
 def radioFinal (r_inicial, v_normal, t_final):
@@ -80,7 +69,7 @@ def calcular(masa, v_tan_inicial, v_normal, r_inicial, t_final):
     mag_v_final = magnitudVector (v_normal, v_tan_final)
     trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
 
-    return("Velocidad final: "+str(round(mag_v_final, 2))+" m/s\nTrabajo: "+str(round(trabajo, 2))+" J")
+    return("Rapidez final: "+str(round(mag_v_final, 2))+" m/s\nTrabajo: "+str(round(trabajo, 2))+" J")
 
 
 ## ...... Para Graficar ......

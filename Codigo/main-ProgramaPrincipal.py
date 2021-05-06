@@ -85,7 +85,7 @@ def verProcedimiento():
         (1/2)(m)(V(0))^2 + U = (1/2)(m)(V("""+str(t_f)+"""))^2\n
         (1/2)("""+str(m)+""")("""+str(vt_i)+""")^2 + U = (1/2)("""+str(m)+""")("""+str(mag_v_final)+""")^2\n
         U = """+str(trabajo)+""" J\n\n
-        Respuesta:\nVelocidad final: """+str(round(mag_v_final, 2))+""" m/s\nTrabajo: """+str(round(trabajo, 2))+""" J"""
+        Respuesta:\nRapidez final: """+str(round(mag_v_final, 2))+""" m/s\nTrabajo: """+str(round(trabajo, 2))+""" J"""
     procedimiento["text"] = procedimiento_texto
     b_procedimiento.pack_forget()
 
@@ -97,10 +97,10 @@ def verGraficasJuntas():
 
         df = f.dataFrameCM(listaParam[0], listaParam[1], listaParam[2], listaParam[3], listaParam[4])
 
-        plt.plot(df.tiempo_s, df.velocidad_cm_s, color='r', label="Velocidad (cm/s)")
+        plt.plot(df.tiempo_s, df.velocidad_cm_s, color='r', label="Rapidez final (cm/s)")
         plt.plot(df.tiempo_s, df.trabajo_J, color='b', label="Trabajo (J)")
         plt.legend()
-        plt.title("Gráfica de velocidad y trabajo vs tiempo")
+        plt.title("Gráfica de rapídez y trabajo vs tiempo")
         plt.xlabel("Tiempo (s)")
         plt.show()
 
@@ -112,8 +112,9 @@ def verGraficaVelocidad():
         
         df = f.dataFrame(listaParam[0], listaParam[1], listaParam[2], listaParam[3], listaParam[4])
 
-        plt.plot(df.tiempo_s, df.velocidad_m_s, color='r', label="Velocidad (m/s)")
-        plt.title("Gráfica de velocidad vs tiempo")
+        plt.plot(df.tiempo_s, df.velocidad_m_s, color='r')
+        plt.title("Gráfica de rapidez vs tiempo")
+        plt.ylabel("Rapidez (m/s)")
         plt.xlabel("Tiempo (s)")
         plt.show()
 
@@ -125,8 +126,9 @@ def verGraficaTrabajo():
         
         df = f.dataFrame(listaParam[0], listaParam[1], listaParam[2], listaParam[3], listaParam[4])
 
-        plt.plot(df.tiempo_s, df.trabajo_J, color='b', label="Trabajo (J)")
+        plt.plot(df.tiempo_s, df.trabajo_J, color='b')
         plt.title("Gráfica de trabajo vs tiempo")
+        plt.ylabel("Trabajo (J)")
         plt.xlabel("Tiempo (s)")
         plt.show()
 
@@ -297,7 +299,7 @@ b_resultado.grid(row=6, column=1, pady=10)
 b_procedimiento = Button (f_resultado, text="Ver procedimiento", command=verProcedimiento)
 #b_procedimiento.place(x=120, y=700)
 b_graficasJuntas = Button (f_resultado, text="Ver Gráficas (Juntas)", width=20, command=verGraficasJuntas)
-b_graficaVelocidad = Button (f_resultado, text="Ver Gráfica de Velocidad", width=20, command=verGraficaVelocidad)
+b_graficaVelocidad = Button (f_resultado, text="Ver Gráfica de Rapidez", width=20, command=verGraficaVelocidad)
 b_graficaTrabajo = Button (f_resultado, text="Ver Gráfica de Trabajo", width=20, command=verGraficaTrabajo)
 
 
