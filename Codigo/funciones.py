@@ -1,8 +1,14 @@
-# ......importación de librerias......
-import math
-import pandas as pd
+## Este archivo contiene la mayoría de las funciones utilizadas en el
+## proyecto, principalmente las matemáticas.
+##
+## Proyecto Dinámica IS - 2021
+## Autor: Gabriel Orlando González Rodríguez - 2019057548
 
-# ......Funciones para los cálculos del problema......
+# ......importación de librerias......
+import math # funciones matemáticas
+import pandas as pd # para trabajar con DataFrames
+
+# ......Funciones para los cálculos matemáticos del problema......
 
 def radioFinal (r_inicial, v_normal, t_final):
     # Función: Calcula el radio final del cable
@@ -25,6 +31,7 @@ def conservacionH (r_inicial, masa, v_tan_inicial, r_final):
     # Parámentros:
     # r_inicial: radio inicial del cable.
     # masa: masa del carrito
+    # v_tan_inicial: velocidad tangencial al inicio del recorrido
     # r_final: radio al final del período de tiempo considerado
     #
     # Salida:
@@ -52,8 +59,8 @@ def principioU_E (masa, v_inicial, v_final):
     #
     # Parámetros:
     # masa: masa del carrito
-    # v_inicial: velocidad incial del carrito
-    # v_final: velocidad final del carrito
+    # v_inicial: velocidad (rapidez) incial del carrito
+    # v_final: velocidad (rapidez) final del carrito
     #
     # Salida:
     # U: trabajo realizado readoneado a dos decimales
@@ -64,6 +71,18 @@ def principioU_E (masa, v_inicial, v_final):
 
 
 def calcular(masa, v_tan_inicial, v_normal, r_inicial, t_final):
+    # Función: Calcula los resultados finales del problema
+    #
+    # Parámetros:
+    # masa: masa del carrito
+    # v_tan_inicial: velocidad tangencial al inicio del recorrido
+    # v_normal: velocidad normal (constante)
+    # r_inicial: radio inicial del cable.
+    # t_final: tiempo que se toma como final para el cálculo del problema
+    #
+    # Salida:
+    # Da el resultado de la rapidez y el trabajo en formato listo para imprimir
+    #
     r_final = radioFinal (r_inicial, v_normal, t_final)
     v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
     mag_v_final = magnitudVector (v_normal, v_tan_final)
@@ -73,6 +92,93 @@ def calcular(masa, v_tan_inicial, v_normal, r_inicial, t_final):
 
 
 ## ...... Para Graficar ......
+
+def dataFrame(masa, v_tan_inicial, v_normal, r_inicial, t_final):
+    # Función: crea un DataFrame con valores para el tiempo, la velocidad y
+    # el trabajo con el valor calculado en el programa colocado en el medio de
+    # los valores. A partir de este DataFrame es que se realizan las gráficas
+    #
+    # Parámetros:
+    # masa: masa del carrito
+    # v_tan_inicial: velocidad tangencial al inicio del recorrido
+    # v_normal: velocidad normal (constante)
+    # r_inicial: radio inicial del cable.
+    # t_final: tiempo que se toma como final para el cálculo del problema
+    #
+    # Salida:
+    # Un DataFrame con los valores de tiempo(s), velocidad(m/s) y trabajo(J)
+    
+    df = pd.DataFrame(columns=["tiempo_s","velocidad_m_s","trabajo_J"])
+    
+    if (t_final%2 == 0): # para definir el rango de valores a graficar de forma
+        # que el valor calculado quede en medio del rango
+        rango = t_final+t_final+1
+    else:
+        rango = t_final+t_final+1
+    
+    for i in range(int(rango)):
+        try:
+            r_final = radioFinal (r_inicial, v_normal, i)
+            v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
+            mag_v_final = magnitudVector (v_normal, v_tan_final)
+            trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
+
+            df.loc[i] = [i, mag_v_final, trabajo]
+
+        except ZeroDivisionError:
+            break
+        
+    return df        
+    ## print: Para revisar el dataFrame (comentar el return)
+    #print(df)
+
+
+def dataFrameCM(masa, v_tan_inicial, v_normal, r_inicial, t_final):
+    # Es la misma función que 'dataFrame' solo que con la velocidad en cm,
+    # para que se aprecien bien la velocidad y el trabajo en la misma gráfica
+    #
+    # Función: crea un DataFrame con valores para el tiempo, la velocidad y
+    # el trabajo con el valor calculado en el programa colocado en el medio de
+    # los valores. A partir de este DataFrame es que se realizan las gráficas
+    #
+    # Parámetros:
+    # masa: masa del carrito
+    # v_tan_inicial: velocidad tangencial al inicio del recorrido
+    # v_normal: velocidad normal (constante)
+    # r_inicial: radio inicial del cable.
+    # t_final: tiempo que se toma como final para el cálculo del problema
+    #
+    # Salida:
+    # Un DataFrame con los valores de tiempo(s), velocidad(cm/s) y trabajo(J)
+    
+    df = pd.DataFrame(columns=["tiempo_s","velocidad_cm_s","trabajo_J"])
+    
+    if (t_final%2 == 0): # para definir el rango de valores a graficar de forma
+        # que el valor calculado quede en medio del rango
+        rango = t_final+t_final+1
+    else:
+        rango = t_final+t_final+1
+    
+    for i in range(int(rango)):
+        try:
+            r_final = radioFinal (r_inicial, v_normal, i)
+            v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
+            mag_v_final = magnitudVector (v_normal, v_tan_final)
+            trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
+
+            df.loc[i] = [i, mag_v_final*100, trabajo]
+
+        except ZeroDivisionError:
+            break
+        
+    return df        
+    ## print: Para revisar el dataFrame (comentar el return)
+    #print(df)
+
+
+#..... Extra: no se usó .....
+# El siguiente código funciona para crear dos DataFrames diferentes,
+# una para tiempo y velocidad, y otra para tiempo y trabajo.
 
 ##def dataFrames(masa, v_tan_inicial, v_normal, r_inicial, t_final):
 ##
@@ -101,52 +207,3 @@ def calcular(masa, v_tan_inicial, v_normal, r_inicial, t_final):
 ##    print(df_velocidad)
 ##    print("\n")
 ##    print(df_trabajo)
-
-
-def dataFrame(masa, v_tan_inicial, v_normal, r_inicial, t_final):
-
-    df = pd.DataFrame(columns=["tiempo_s","velocidad_m_s","trabajo_J"])
-    
-    if (t_final%2 == 0):
-        rango = t_final+t_final+1
-    else:
-        rango = t_final+t_final+1
-    
-    for i in range(int(rango)):
-        try:
-            r_final = radioFinal (r_inicial, v_normal, i)
-            v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
-            mag_v_final = magnitudVector (v_normal, v_tan_final)
-            trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
-
-            df.loc[i] = [i, mag_v_final, trabajo]
-
-        except ZeroDivisionError:
-            break
-    return df        
-    ## print: Para revisar el dataFrame
-    #print(df)
-
-def dataFrameCM(masa, v_tan_inicial, v_normal, r_inicial, t_final):
-
-    df = pd.DataFrame(columns=["tiempo_s","velocidad_cm_s","trabajo_J"])
-    
-    if (t_final%2 == 0):
-        rango = t_final+t_final+1
-    else:
-        rango = t_final+t_final+1
-    
-    for i in range(int(rango)):
-        try:
-            r_final = radioFinal (r_inicial, v_normal, i)
-            v_tan_final = conservacionH (r_inicial, masa, v_tan_inicial, r_final)
-            mag_v_final = magnitudVector (v_normal, v_tan_final)
-            trabajo = principioU_E (masa, v_tan_inicial, mag_v_final)
-
-            df.loc[i] = [i, mag_v_final*100, trabajo]
-
-        except ZeroDivisionError:
-            break
-    return df        
-    ## print: Para revisar el dataFrame
-    #print(df)
