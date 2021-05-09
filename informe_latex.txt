@@ -218,7 +218,24 @@ En las figuras \ref{fig:grafica_rapidez} y \ref{fig:grafica_trabajo} se pueden a
 \subsection*{Comparación}
 %Comparación entre los resultados teóricos y simulados
 
-Los resultados obtenidos en la memoria de calculo fueron, 4.03 m/s para la rapidez final del carrito y 724.09 J para el trabajo realizado para halar la cuerda, prácticamente los mismos que los obtenidos en el método de validación, 4.03 m/s para la rapidez y 725 J para el trabajo.
+Los resultados obtenidos en la memoria de calculo fueron, 4.03 m/s para la rapidez final del carrito y 724.09 J para el trabajo realizado para halar la cuerda, prácticamente los mismos que los obtenidos en el método de validación, 4.03 m/s para la rapidez y 725 J para el trabajo, a como se puede observar en la tabla \ref{tab:resultados}.
+
+\begin{table}[H]
+    \centering
+    \caption{Resultados obtenidos}
+        \label{tab:resultados}
+        \begin{tabular}{c c c c c }
+            \hline
+            & Memoria de cálculo & Proceso de validación \\
+            \hline
+            Rapidez final (m/s) & 4.03 & 4.03\\
+            \hline
+            Trabajo realizado (J) & 724.09 & 725 \\
+            \hline
+            Porcentaje de error (\%) & 0 & 0.13 \\
+            \hline
+        \end{tabular}
+\end{table}
 
 \subsection*{Análisis}
 % Análisis fundamentado del porqué de las diferencias entre los resultados, en caso de existir
