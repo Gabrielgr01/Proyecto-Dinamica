@@ -30,7 +30,7 @@ Los resultados obtenidos manualmente fueron prácticamente iguales a los obtenid
 \section*{Objetivos}
 
 \begin{enumerate}
-    \item Resolver el problema manualmente en la hoja de cálculo utilizando una estrategia basada en los contenidos del curso.
+    \item Resolver el problema manualmente en la memoria de cálculo utilizando una estrategia basada en los contenidos del curso.
     \item Construir un programa de computadora, con interfaz gráfica, capaz de calcular el problema independientemente de los valores de entrada que se ingresen, y con él verificar los resultados obtenidos en la memoria de cálculo.
     \item Graficar los resultados obtenidos del problema (velocidad final y trabajo realizado por la fuerza que hala la cuerda) en función del tiempo, para poder visualizar y analizar el comportamiento de dichos resultados.
 \end{enumerate}
@@ -156,7 +156,7 @@ En la figura \ref{fig:Resultados_interfaz} se pueden observar los resultados obt
 \begin{figure}[H]
     \centering
     \includegraphics[width=8cm]{fig/interfaz_resultados}
-    \caption{Resultados obtenidos del programa}
+    \caption{Resultados obtenidos del programa.}
     \label{fig:Resultados_interfaz}
 \end{figure}
 
@@ -185,7 +185,7 @@ En la figura \ref{fig:Resultados_interfaz} se pueden observar los resultados obt
         \label{fig:interfaz_procedimientoB}
     \end{subfigure}
     
-    \caption{Procedimiento obtenido del programa}
+    \caption{Procedimiento obtenido del programa.}
     \label{fig:Procedimiento_interfaz}
 \end{figure}
 
@@ -194,21 +194,21 @@ En las figuras \ref{fig:grafica_rapidez} y \ref{fig:grafica_trabajo} se pueden a
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{fig/Grafica_Rapidez}
-    \caption{Gráfica de rapidez final en función del tiempo obtenida en el programa}
+    \caption{Gráfica de rapidez final en función del tiempo obtenida en el programa.}
     \label{fig:grafica_rapidez}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{fig/Grafica_Trabajo}
-    \caption{Gráfica de trabajo realizado para halar el cable en función del tiempo obtenida en el programa}
+    \caption{Gráfica de trabajo realizado para halar el cable en función del tiempo obtenida en el programa.}
     \label{fig:grafica_trabajo}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=10cm]{fig/Graficas_Juntas}
-    \caption{Gráfica de rapidez final y trabajo realizado para halar el cable en función del tiempo obtenidas en el programa}
+    \caption{Gráfica de rapidez final y trabajo realizado para halar el cable en función del tiempo obtenidas en el programa.}
     \label{fig:graficas_juntas}
 \end{figure}
 
@@ -216,13 +216,33 @@ En las figuras \ref{fig:grafica_rapidez} y \ref{fig:grafica_trabajo} se pueden a
 \section*{Análisis de resultados}
 
 \subsection*{Comparación}
-Comparación entre los resultados teóricos y simulados
+%Comparación entre los resultados teóricos y simulados
+
+Los resultados obtenidos en la memoria de calculo fueron, 4.03 m/s para la rapidez final del carrito y 724.09 J para el trabajo realizado para halar la cuerda, prácticamente los mismos que los obtenidos en el método de validación, 4.03 m/s para la rapidez y 725 J para el trabajo.
 
 \subsection*{Análisis}
-Análisis fundamentado del porqué de las diferencias entre los resultados, en caso de existir
+% Análisis fundamentado del porqué de las diferencias entre los resultados, en caso de existir
+
+La diferencia entre los resultados obtenidos para el trabajo se le atribuye al redondeo realizado en los resultados intermedios de la memoria de cálculo. Se puede comprobar que manejando todos los decimales el resultado sería el mismo que en el método de validación.
+
+Al visualizar las gráficas de las figuras \ref{fig:grafica_rapidez} y \ref{fig:grafica_trabajo} se nota a primera vista que el comportamiento tanto de la rapidez como del trabajo tiene un crecimiento parabólico (y cóncavo hacia arriba) a lo largo del tiempo, sin embargo, al graficar el recorrido completo del carrito (o con un valor relativamente más alto que el que se utiliza en el problema para el tiempo final) nos damos cuenta que el crecimiento en realidad es exponencial. Al comparar ambas gráficas notamos como el crecimiento del trabajo posee una pendiente mucho mayor que la de la rapidez, la cual se mantiene más constante en comparación. Lo expuesto anteriormente puede visualizarse en la figura \ref{fig:graficas_juntas_completo}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{fig/Graficas_Juntas_Completo}
+    \caption{Gráfica de rapidez final y trabajo realizado para halar el cable en función del tiempo obtenidas en el programa para el recorrido completo del carrito.}
+    \label{fig:graficas_juntas_completo}
+\end{figure}
 
 \section*{Conclusiones}
-Conclusiones del proyecto, recuerde que por cada objetivo específico debe haber una conclusión correspondiente.
+%Conclusiones del proyecto, recuerde que por cada objetivo específico debe haber una conclusión correspondiente.
+
+\begin{enumerate}
+    \item Se logró resolver manualmente el problema seleccionado en la memoria de cálculo, obteniendo un resultado de 4.03 m/s para la rapidez y 724.09 J para el trabajo.
+    \item Se construyó correctamente el programa de computadora y al validar en este con los de la memoria de cálculo se obtuvieron los valores esperados. En ambos casos fueron las respuestas fueron las mismas con una diferencia de decimales únicamente, para el caso del trabajo, y atribuidas al redondeo en la memoria de cálculo. En el programa se obtuvo una rapidez de 4.03 m/s y un trabajo de 725 J.
+    \item El problema realizó las gráficas correctamente y en ella se pudieron comprobar, una vez más, los resultados.
+    \item Tanto la rapidez como el trabajo, para la situación planteada en el problema, presentan un crecimiento parabólico, y cóncavo hacia arriba, a lo largo del tiempo.
+\end{enumerate}
 
 
 %%%%%%% no borre lo que está después de esta línea
@@ -230,4 +250,3 @@ Conclusiones del proyecto, recuerde que por cada objetivo específico debe haber
 \ifdefined\niveldos\else
 \end{document} 
 \fi
-
