@@ -56,6 +56,8 @@ Los resultados obtenidos manualmente fueron prácticamente iguales a los obtenid
 \begin{itemize}
     \item Velocidad inicial constante.
     \item Velocidad normal constante.
+    \item Tiempo inicial = 0 s
+    \item Velocidad tangencial inicial =  rapidez inicial
 \end{itemize}
 
 % Suposiciones sobre las que se basa el problema: simetría, velocidad inicial cero, fricción despreciable, etc
@@ -142,11 +144,43 @@ El proceso de validación elegido consiste en un programa de computadora capaz d
 
 
 \subsection*{Explicación}
-Explicación del proceso de validación. (¿cómo lo hizo, qué suposiciones y consideraciones realizó?, adjunta imágenes)
+% Explicación del proceso de validación. (¿cómo lo hizo, qué suposiciones y consideraciones realizó?, adjunta imágenes)
 
-\begin{center}
-    \includegraphics[width=5cm]{fig/Fig1}
-\end{center}
+Para el proceso de validación lo primero que se hizo fue considerar cuáles iban a ser los datos de entrada y de salida. Se deseaba que los cinco parámetros de entrada que se dan en el problema (masa, rapidez inicial, velocidad normal, radio inicial y tiempo final) no fueran necesariamente los indicados en el enunciado sino los que el usuario decidiera ingresar. Para los datos de salida estaba claro que eran la rapidez final del carrito y el trabajo realizado para halar la cuerda. En la figura \ref{fig:diagrama_flujo} se muestra el diagrama de flujo realizado para el programa, ya con las funcionalidades deseadas: desplegar el resultado, el procedimiento y las gráficas de la variables de salida en función del tiempo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig/Diagrama_flujo}
+    \caption{Diagrama de flujo del programa.}
+    \label{fig:diagrama_flujo}
+\end{figure}
+
+Se decidió utilizar el lenguaje Python por su simplicidad y facilidad para implementar la interfaz de usuario y la generación de gráficas con sus librerías: tkinter para la interfaz, pandas para la generación de DataFrames y matplotlib para gráficar la información en los DataFrames. Se crearon dos archivos: 'funciones.py' para las funciones matemáticas del problema y 'main-ProgramaPrincipal.py' para lo referente a la interfaz de usuario y las gráficas. Dichos archivos pueden visualizarse en las figuras \ref{fig:codigo_funciones} y \ref{fig:codigo_main}, respectivamente.
+
+\begin{figure}[H]
+    \centering
+    
+    \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+        \includegraphics[width=\linewidth]{fig/Codigo_funciones}
+        \caption{Funciones matemáticas}
+        \label{fig:codigo_funciones}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/Codigo_main}
+        \caption{Interfáz gráfica de usuario y otros.}
+        \label{fig:codigo_main}
+    \end{subfigure}
+    
+    \caption{Archivos utilizados para el código del programa.}
+    \label{fig:Procedimiento_interfaz}
+\end{figure}
+
+En el programa se tomaron en cuenta todas las suposiciones anteriormente mencionadas en este informe y en lo que respecta a la validación de datos, solo se permite que se ingresen valores positivos para los parámetros de entrada (el único parámetro que podría tener un valor positivo sería la velocidad tangencial inicial, pero de ser así eso simplemente indicaría que el movimiento del carrito en el sistema se realizaría hacia el lado opuesto y en general todo el análisis se mantendría igual, por esto se decide igualmente solo dejar que se ingrese un valor positivo). Además, no se permite que se ingresen valores para el tiempo final que excedan el momento en el que la distancia de la cuerda del carrito llega a ser cero, en otras palabras, el tiempo final máximo permitido es en el que el radio final de la cuerda sería 0 (en el programa se utiliza 0.5 como aproximación porque de ser específicamente 0 no se podría calcular correctamente la velocidad tangencial final).
+
+Para las gráficas, el valor en estudio, siempre que se pueda, se coloca en el medio del total de datos gráficados para poder ver el comportamiento de la variable tanto antes como después del momento ingresado y utilizado para obtener dicho valor. Cuando esto no sucede es porque el programa deja de gráficar valores en el momento antes de que el radio del carrito llegue a cero.
 
 \subsection*{Resultados de validación}
 % Presentación de resultados de la validación (Tablas, imágenes)
@@ -155,7 +189,7 @@ En la figura \ref{fig:Resultados_interfaz} se pueden observar los resultados obt
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=8cm]{fig/interfaz_resultados}
+    \includegraphics[width=8cm]{fig/interfaz_resultados_cut}
     \caption{Resultados obtenidos del programa.}
     \label{fig:Resultados_interfaz}
 \end{figure}
