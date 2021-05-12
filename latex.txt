@@ -1,0 +1,303 @@
+%NO BORRAR PARA COMPILAR PREGUNTA%%%%%%
+\ifdefined\niveldos\else
+\documentclass[12pt,letterpaper]{report}
+\usepackage{DefinicionClases}
+
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{subcaption}
+
+\begin{document}
+\fi
+
+Nombre: Gabriel Orlando González Rodríguez \\
+Carnet: 2019057548 \\
+Grupo: 03 \\
+
+\section*{Introducción}
+
+Para este trabajo se seleccionó un problema a resolver, relacionado con los contenidos del curso de Dinámica, y por medio de la creación de un programa de computadora (método de validación elegido) comprobar los resultados obtenidos manualmente en la solución de ejercicio. El programa también tiene la capacidad de generar gráficos para poder visualizar el comportamiento de las variables obtenidas como resultado (velocidad y trabajo) en distintos instantes de tiempo.
+
+Primero, se resolvió el problema a mano, en una memoria de cálculo, aplicando la metodología que se menciona más adelante en este informe. Una vez hecho esto se hizo un diagrama de flujo para organizar el funcionamiento, en general, del programa a realizar. Posteriormente, se creó un programa que resolviera el problema para cualquier valor posible en los parametros de entrada, no necesariamente los que se indican en el problema, y se comprobó el resultado de la memoria de cálculo. Seguidamente se implementó una interfaz gráfica para manejar el programa, a la cual se le agregó también la funcionalidad de crear gráficos de las variables finales del problema (velocidad y trabajo) en función del tiempo. Por último, se grabó el video donde se explica tanto la realización del proyecto como el análisis de los resultados y gráficas obtenidas.
+
+Los resultados obtenidos manualmente fueron prácticamente iguales a los obtenidos en el programa (la velocidad fue de 4.03 m/s y el trabajo de 725 J), la diferencia fue de decimales y se le atribuye al redondeo a la hora de realizar los cálculos.
+
+%AGREGAR RESULTADOS
+
+% Escriba aquí una introducción al trabajo que va a presentar, que le genere al lector interés en el documento, mencione qué hizo, cómo y los resultados obtenidos.
+
+\section*{Objetivos}
+
+\begin{enumerate}
+    \item Resolver el problema manualmente en la memoria de cálculo utilizando una estrategia basada en los contenidos del curso.
+    \item Construir un programa de computadora, con interfaz gráfica, capaz de calcular el problema independientemente de los valores de entrada que se ingresen, y con él verificar los resultados obtenidos en la memoria de cálculo.
+    \item Graficar los resultados obtenidos del problema (velocidad final y trabajo realizado por la fuerza que hala la cuerda) en función del tiempo, para poder visualizar y analizar el comportamiento de dichos resultados.
+\end{enumerate}
+
+% Escriba aquí los objetivos de su proyecto. Los objetivos se deben redactar con base a su proyecto en específico. Puede utilizar la metodología "SMART" para la redacción de estos.
+
+\section*{Solución teórica del problema}
+
+\subsection*{Descripción del problema seleccionado}
+
+\textbf{15-110.} The amusement park ride consists of a 200-kg car and passenger that are traveling at 3 m/s along a circular path having a radius of 8 m. If at t = 0, the cable \textit{OA} is pulled in toward \textit{O} at 0.5 m/s, determine the speed of the car when t = 4 s. Also, determine the work done to pull in the cable. (Hibbeler ed.14)
+
+% Escriba aquí el enunciado del ejercicio y la imagen, la cual se debe llamar Fig1, ajuste también el tamaño según sus necesidades.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{fig/Fig1}
+\end{figure}
+
+
+\subsection*{Suposiciones}
+
+\begin{itemize}
+    \item Velocidad normal constante.
+    \item Tiempo inicial = 0 s
+    \item Velocidad tangencial inicial =  rapidez inicial
+\end{itemize}
+
+% Suposiciones sobre las que se basa el problema: simetría, velocidad inicial cero, fricción despreciable, etc
+
+\subsection*{Datos de entrada}
+
+\begin{itemize}
+    \item Masa del carrito = 200 kg
+    \item Velocidad tangencial inicial = 3 m/s
+    \item Radio inicial = 8 m
+    \item Velocidad normal = 0.5 m/s
+    \item Tiempo final = 4 s
+\end{itemize}
+
+% Datos de entrada: Materiales, geometrías, masas, aceleraciones
+
+
+\subsection*{Metodología}
+
+\begin{enumerate}
+    \item Conservación de la cantidad de momento angular: 
+    
+Se tienen todos los parametros para, a partir de la ecuación de la conservación de la cantidad de momento angular, calcular la velocidad tangencial del carrito en t = 4s, exceptuando el valor del radio en este instante final del tiempo. Por lo tanto, lo primero que se hace es calcular este radio sabiendo que su distancia se va a reducir a 0.5 m/s. Una vez calculado el radio en t = 4s se obtiene la velocidad tangencial utilizando la ecuación.
+
+Como se nos pregunta por la rapidez ("speed") del carrito, se procede a calcular la magnitud del vector velocidad utilizando sus componentes, la velocidad tangencial ya obtenida y la velocidad norma que se nos da del enunciado (esta útlima es constante en todo el recorrido).
+
+    \item Principio de trabajo y energía
+
+A partir de la ecuación de trabajo y energía se despeja el valor de trabajo, utilizando los valores de rapidez en t = 0s y t = 4s.
+ 
+\end{enumerate}
+
+% Metodología: se indica cual será la estrategia de solución (Newton, Energías, Impulso, etc.) Se explica en prosa cómo realizó la solución.
+
+
+\subsection*{Cálculos}
+
+Cálculo del radio final:
+$$r_{t} = r_{t_{0}} - v_{n} (t)$$
+    
+$$r_{(4)} = 8 - 0.5(4)$$
+    
+$$r_{(4)} = 6m$$
+
+
+Conservación de la cantidad de movimiento angular:
+$$(H_{O})_{t_{0}} = (H_{O})_{t}$$
+    
+$$r_{t_{0}}(m)(v_{tan})_{t_{0}} = r_{t}(m)(v_{tan})_{t}$$
+    
+$$(v_{tan})_{(4)} = 4 m/s$$
+
+
+Cálculo de la rapidez final del carrito:
+
+$$ v_{t} = \sqrt{((v_{n})_{t})^{2}+((v_{tan})_{t})^{2}} $$
+
+$$ v_{(4)} = 4.03 m/s $$
+
+
+Principio de trabajo y energía:
+$$ T_{t_{0}} + U_{t_{0}-t} = T_{t} $$
+
+$$ \frac{1}{2}(m)(v_{t_{0}})^{2} + U_{t_{0}-t} = \frac{1}{2}(m)(v_{t})^{2} $$
+
+$$ U_{t_{0}-t} = 724.09 J $$
+
+%Cálculos: se debe escribir un resumen de la memoria de cálculo con las ecuaciones y los resultados más importantes (escritas en computadora), las ecuaciones deben estar numeradas. Todos los detalles de las operaciones están en la memoria de cálculo, realizada a mano.
+
+
+\subsection*{Resultados}
+
+Rapidez final del carrito = 4.03 m/s \\
+Trabajo realizado para halar el cable = 724.09 J
+
+% Resultados: Se incluye un resumen de los resultados obtenidos.
+
+\section*{Validación del problema}
+
+\subsection*{Descripción}
+El proceso de validación elegido consiste en un programa de computadora capaz de calcular el problema expuesto, mostrar los resultados, el procedimiento realizado y crear una serie de graficas (rapidez final vs tiempo y trabajo realizado para halar la cuerda vs tiempo) con base en los datos ingresados. El programa tiene la peculiaridad de poder realizar lo recién mencionado para cualesquiera posibles parametros de entrada, no únicamente para los que se dan en el enunciado del problema.
+
+% Descripción general del proceso de validación.(¿En qué consiste?)
+
+
+\subsection*{Explicación}
+% Explicación del proceso de validación. (¿cómo lo hizo, qué suposiciones y consideraciones realizó?, adjunta imágenes)
+
+Para el proceso de validación lo primero que se hizo fue considerar cuáles iban a ser los datos de entrada y de salida. Se deseaba que los cinco parámetros de entrada que se dan en el problema (masa, rapidez inicial, velocidad normal, radio inicial y tiempo final) no fueran necesariamente los indicados en el enunciado sino los que el usuario decidiera ingresar. Para los datos de salida estaba claro que eran la rapidez final del carrito y el trabajo realizado para halar la cuerda. En la figura \ref{fig:diagrama_flujo} se muestra el diagrama de flujo realizado para el programa, ya con las funcionalidades deseadas: desplegar el resultado, el procedimiento y las gráficas de la variables de salida en función del tiempo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{fig/Diagrama_flujo}
+    \caption{Diagrama de flujo del programa.}
+    \label{fig:diagrama_flujo}
+\end{figure}
+
+Se decidió utilizar el lenguaje Python por su simplicidad y facilidad para implementar la interfaz de usuario y la generación de gráficas con sus librerías: tkinter para la interfaz, pandas para la generación de DataFrames y matplotlib para gráficar la información en los DataFrames. Se crearon dos archivos: 'funciones.py' para las funciones matemáticas del problema y 'main-ProgramaPrincipal.py' para lo referente a la interfaz de usuario y las gráficas. Dichos archivos pueden visualizarse en las figuras \ref{fig:codigo_funciones} y \ref{fig:codigo_main}, respectivamente.
+
+\begin{figure}[H]
+    \centering
+    
+    \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+        \includegraphics[width=\linewidth]{fig/Codigo_funciones}
+        \caption{Funciones matemáticas}
+        \label{fig:codigo_funciones}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/Codigo_main}
+        \caption{Interfáz gráfica de usuario y otros.}
+        \label{fig:codigo_main}
+    \end{subfigure}
+    
+    \caption{Archivos utilizados para el código del programa.}
+    \label{fig:Procedimiento_interfaz}
+\end{figure}
+
+En el programa se tomaron en cuenta todas las suposiciones anteriormente mencionadas en este informe y en lo que respecta a la validación de datos, solo se permite que se ingresen valores positivos para los parámetros de entrada (el único parámetro que podría tener un valor positivo sería la velocidad tangencial inicial, pero de ser así eso simplemente indicaría que el movimiento del carrito en el sistema se realizaría hacia el lado opuesto y en general todo el análisis se mantendría igual, por esto se decide igualmente solo dejar que se ingrese un valor positivo). Además, no se permite que se ingresen valores para el tiempo final que excedan el momento en el que la distancia de la cuerda del carrito llega a ser cero, en otras palabras, el tiempo final máximo permitido es en el que el radio final de la cuerda sería 0 (en el programa se utiliza 0.5 como aproximación porque de ser específicamente 0 no se podría calcular correctamente la velocidad tangencial final).
+
+Para las gráficas, el valor en estudio, siempre que se pueda, se coloca en el medio del total de datos gráficados para poder ver el comportamiento de la variable tanto antes como después del momento ingresado y utilizado para obtener dicho valor. Cuando esto no sucede es porque el programa deja de gráficar valores en el momento antes de que el radio del carrito llegue a cero.
+
+\subsection*{Resultados de validación}
+% Presentación de resultados de la validación (Tablas, imágenes)
+
+En la figura \ref{fig:Resultados_interfaz} se pueden observar los resultados obtenidos por medio del programa realizado, y en la figura \ref{fig:Procedimiento_interfaz} el procedimiento desplegado por el programa.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=8cm]{fig/interfaz_resultados_cut}
+    \caption{Resultados obtenidos del programa.}
+    \label{fig:Resultados_interfaz}
+\end{figure}
+
+%\begin{figure}[H]
+    %\centering
+    %\includegraphics[width=10cm]{fig/interfaz_procedimiento}
+    %\caption{Procedimiento obtenido del programa}
+    %\label{fig:Procedimiento_interfaz}
+%\end{figure}
+
+
+\begin{figure}[H]
+    \centering
+    
+    \begin{subfigure}[b]{0.48\linewidth}
+    \centering
+        \includegraphics[width=\linewidth]{fig/interfaz_procedimientoA}
+        \caption{Radio final y conservación del momento angular}
+        \label{fig:interfaz_procedimientoA}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{fig/interfaz_procedimientoB}
+        \caption{Rapidez final y principio de trabajo y energía}
+        \label{fig:interfaz_procedimientoB}
+    \end{subfigure}
+    
+    \caption{Procedimiento obtenido del programa.}
+    \label{fig:Procedimiento_interfaz}
+\end{figure}
+
+En las figuras \ref{fig:grafica_rapidez} y \ref{fig:grafica_trabajo} se pueden apreciar las gráficas que despliega el programa para la rapidez final y el trabajo realizado ambas en distintos instantes de tiempo, respectivamente. En la figura \ref{fig:graficas_juntas} se muestran ambas curvas juntas para mayor facilidad al compararlas.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{fig/Grafica_Rapidez}
+    \caption{Gráfica de rapidez final en función del tiempo obtenida en el programa.}
+    \label{fig:grafica_rapidez}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{fig/Grafica_Trabajo}
+    \caption{Gráfica de trabajo realizado para halar el cable en función del tiempo obtenida en el programa.}
+    \label{fig:grafica_trabajo}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{fig/Graficas_Juntas}
+    \caption{Gráfica de rapidez final y trabajo realizado para halar el cable en función del tiempo obtenidas en el programa.}
+    \label{fig:graficas_juntas}
+\end{figure}
+
+
+\section*{Análisis de resultados}
+
+\subsection*{Comparación}
+%Comparación entre los resultados teóricos y simulados
+
+Los resultados obtenidos en la memoria de calculo fueron, 4.03 m/s para la rapidez final del carrito y 724.09 J para el trabajo realizado para halar la cuerda, prácticamente los mismos que los obtenidos en el método de validación, 4.03 m/s para la rapidez y 725 J para el trabajo, a como se puede observar en la tabla \ref{tab:resultados}.
+
+\begin{table}[H]
+    \centering
+    \caption{Comparación de los resultados obtenidos}
+        \label{tab:resultados}
+        \begin{tabular}{c c c c c }
+            \hline
+            & Rapidez final (m/s) & Trabajo realizado (J) \\
+            \hline
+            Memoria de cálculo & 4.03 & 724.09\\
+            \hline
+            Proceso de validación & 4.03 & 725 \\
+            \hline
+            Porcentaje de error (\%) & 0 & 0.13 \\
+            \hline
+        \end{tabular}
+\end{table}
+
+\subsection*{Análisis}
+% Análisis fundamentado del porqué de las diferencias entre los resultados, en caso de existir
+
+La diferencia entre los resultados obtenidos para el trabajo se le atribuye al redondeo realizado en los resultados intermedios de la memoria de cálculo. Se puede comprobar que manejando todos los decimales el resultado sería el mismo que en el método de validación.
+
+Al visualizar las gráficas de las figuras \ref{fig:grafica_rapidez} y \ref{fig:grafica_trabajo} se nota a primera vista que el comportamiento tanto de la rapidez como del trabajo tiene un crecimiento parabólico (y cóncavo hacia arriba) a lo largo del tiempo, sin embargo, al graficar el recorrido completo del carrito (o con un valor relativamente más alto que el que se utiliza en el problema para el tiempo final) nos damos cuenta que el crecimiento en realidad es exponencial. Al comparar ambas gráficas notamos como el crecimiento del trabajo posee una pendiente mucho mayor que la de la rapidez, la cual se mantiene más constante en comparación. Lo expuesto anteriormente puede visualizarse en la figura \ref{fig:graficas_juntas_completo}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm]{fig/Graficas_Juntas_Completo}
+    \caption{Gráfica de rapidez final y trabajo realizado para halar el cable en función del tiempo obtenidas en el programa para el recorrido completo del carrito.}
+    \label{fig:graficas_juntas_completo}
+\end{figure}
+
+\section*{Conclusiones}
+%Conclusiones del proyecto, recuerde que por cada objetivo específico debe haber una conclusión correspondiente.
+
+\begin{enumerate}
+    \item Se logró resolver manualmente el problema seleccionado en la memoria de cálculo, obteniendo un resultado de 4.03 m/s para la rapidez y 724.09 J para el trabajo.
+    \item Se construyó correctamente el programa de computadora y al validar en este con los de la memoria de cálculo se obtuvieron los valores esperados. En ambos casos fueron las respuestas fueron las mismas con una diferencia de decimales únicamente, para el caso del trabajo, y atribuidas al redondeo en la memoria de cálculo. En el programa se obtuvo una rapidez de 4.03 m/s y un trabajo de 725 J.
+    \item Por medio de las gráficas realizadas se observó que tanto la rapidez como el trabajo, para la situación planteada en el problema, presentan un crecimiento exponencial, a lo largo del tiempo.
+    \item El crecimiento exponencial de la rapidez final conforme el radio de la cuerda disminuye comprueba la validez del principio de conservación de la cantidad de movimiento angular.
+\end{enumerate}
+
+
+%%%%%%% no borre lo que está después de esta línea
+
+\ifdefined\niveldos\else
+\end{document} 
+\fi
+
